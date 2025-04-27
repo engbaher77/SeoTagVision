@@ -94,25 +94,25 @@ export function TagAnalysis({ result }: TagAnalysisProps) {
             </li>
             
             {/* Meta Description */}
-            <li className="py-4">
-              <div className="flex justify-between">
+            <li className="py-3 md:py-4">
+              <div className="flex justify-between items-center">
                 <div className="flex items-center">
                   <div>{getStatusIcon(descriptionStatus.icon)}</div>
-                  <span className="ml-2 font-medium">Meta Description</span>
+                  <span className="ml-2 text-sm md:text-base font-medium">Meta Description</span>
                 </div>
                 {getStatusBadge(descriptionStatus.badge, descriptionStatus.badge)}
               </div>
               <div className="mt-2">
-                <div className="text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
+                <div className="text-xs md:text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
                   <code>{result.metaTags.description || 'No meta description found'}</code>
                 </div>
                 {result.metaTags.description && (
-                  <div className="mt-2 text-sm text-gray-500">
+                  <div className="mt-1 md:mt-2 text-xs md:text-sm text-gray-500">
                     Length: {result.metaTags.description.length} characters (Recommended: 150-160)
                   </div>
                 )}
                 {!result.metaTags.description && (
-                  <div className="mt-2 text-sm text-gray-500">
+                  <div className="mt-1 md:mt-2 text-xs md:text-sm text-gray-500">
                     A meta description helps improve click-through rates from search results.
                   </div>
                 )}
@@ -120,19 +120,19 @@ export function TagAnalysis({ result }: TagAnalysisProps) {
             </li>
             
             {/* Canonical URL */}
-            <li className="py-4">
-              <div className="flex justify-between">
+            <li className="py-3 md:py-4">
+              <div className="flex justify-between items-center">
                 <div className="flex items-center">
                   <div>{getStatusIcon(canonicalStatus.icon)}</div>
-                  <span className="ml-2 font-medium">Canonical URL</span>
+                  <span className="ml-2 text-sm md:text-base font-medium">Canonical URL</span>
                 </div>
                 {getStatusBadge(canonicalStatus.badge, canonicalStatus.badge)}
               </div>
               <div className="mt-2">
-                <div className="text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
+                <div className="text-xs md:text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
                   <code>{result.metaTags.canonical || 'No canonical URL found'}</code>
                 </div>
-                <div className="mt-2 text-sm text-gray-500">
+                <div className="mt-1 md:mt-2 text-xs md:text-sm text-gray-500">
                   Canonical URLs help prevent duplicate content issues by specifying the preferred version of a page.
                 </div>
               </div>
@@ -143,20 +143,20 @@ export function TagAnalysis({ result }: TagAnalysisProps) {
 
       {/* Social Media Tags */}
       <Card>
-        <CardHeader className="px-6 py-4 border-b border-gray-200">
-          <CardTitle className="text-lg font-medium text-gray-900">Social Media Tags</CardTitle>
-          <CardDescription className="text-sm text-gray-500">Tags that control how your content appears on social platforms</CardDescription>
+        <CardHeader className="px-4 md:px-6 py-3 md:py-4 border-b border-gray-200">
+          <CardTitle className="text-base md:text-lg font-medium text-gray-900">Social Media Tags</CardTitle>
+          <CardDescription className="text-xs md:text-sm text-gray-500">Tags that control how your content appears on social platforms</CardDescription>
         </CardHeader>
-        <CardContent className="px-6 py-4">
+        <CardContent className="px-4 md:px-6 py-3 md:py-4">
           <ul className="divide-y divide-gray-200">
             {/* Open Graph Title */}
-            <li className="py-4">
-              <div className="flex justify-between">
+            <li className="py-3 md:py-4">
+              <div className="flex justify-between items-center">
                 <div className="flex items-center">
                   <div>
-                    {getStatusIcon(result.metaTags['og:title'] ? 'success' : 'warning')}
+                    {getStatusIcon(result.metaTags['og:title'] ? 'success' : 'warning' as const)}
                   </div>
-                  <span className="ml-2 font-medium">og:title</span>
+                  <span className="ml-2 text-sm md:text-base font-medium">og:title</span>
                 </div>
                 {getStatusBadge(
                   result.metaTags['og:title'] ? 'Present' : 'Missing', 
@@ -164,23 +164,23 @@ export function TagAnalysis({ result }: TagAnalysisProps) {
                 )}
               </div>
               <div className="mt-2">
-                <div className="text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
+                <div className="text-xs md:text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
                   <code>{result.metaTags['og:title'] || 'No og:title found'}</code>
                 </div>
-                <div className="mt-2 text-sm text-gray-500">
+                <div className="mt-1 md:mt-2 text-xs md:text-sm text-gray-500">
                   The og:title tag controls how your title appears when shared on Facebook and other platforms.
                 </div>
               </div>
             </li>
             
             {/* Open Graph Image */}
-            <li className="py-4">
-              <div className="flex justify-between">
+            <li className="py-3 md:py-4">
+              <div className="flex justify-between items-center">
                 <div className="flex items-center">
                   <div>
-                    {getStatusIcon(result.metaTags['og:image'] ? 'success' : 'error')}
+                    {getStatusIcon(result.metaTags['og:image'] ? 'success' : 'error' as const)}
                   </div>
-                  <span className="ml-2 font-medium">og:image</span>
+                  <span className="ml-2 text-sm md:text-base font-medium">og:image</span>
                 </div>
                 {getStatusBadge(
                   result.metaTags['og:image'] ? 'Present' : 'Missing', 
@@ -188,23 +188,23 @@ export function TagAnalysis({ result }: TagAnalysisProps) {
                 )}
               </div>
               <div className="mt-2">
-                <div className="text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
+                <div className="text-xs md:text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
                   <code>{result.metaTags['og:image'] || 'No og:image found'}</code>
                 </div>
-                <div className="mt-2 text-sm text-gray-500">
+                <div className="mt-1 md:mt-2 text-xs md:text-sm text-gray-500">
                   The og:image tag is critical for engagement when your content is shared on social media.
                 </div>
               </div>
             </li>
 
             {/* Twitter Card */}
-            <li className="py-4">
-              <div className="flex justify-between">
+            <li className="py-3 md:py-4">
+              <div className="flex justify-between items-center">
                 <div className="flex items-center">
                   <div>
-                    {getStatusIcon(result.metaTags['twitter:card'] ? 'success' : 'warning')}
+                    {getStatusIcon(result.metaTags['twitter:card'] ? 'success' : 'warning' as const)}
                   </div>
-                  <span className="ml-2 font-medium">twitter:card</span>
+                  <span className="ml-2 text-sm md:text-base font-medium">twitter:card</span>
                 </div>
                 {getStatusBadge(
                   result.metaTags['twitter:card'] ? 'Present' : 'Missing', 
@@ -212,10 +212,10 @@ export function TagAnalysis({ result }: TagAnalysisProps) {
                 )}
               </div>
               <div className="mt-2">
-                <div className="text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
+                <div className="text-xs md:text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
                   <code>{result.metaTags['twitter:card'] || 'No twitter:card found'}</code>
                 </div>
-                <div className="mt-2 text-sm text-gray-500">
+                <div className="mt-1 md:mt-2 text-xs md:text-sm text-gray-500">
                   The twitter:card tag controls the appearance of your content when shared on Twitter.
                 </div>
               </div>
