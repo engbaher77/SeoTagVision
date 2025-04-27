@@ -5,10 +5,11 @@ import { PreviewSection } from "@/components/preview-section";
 import { TagAnalysis } from "@/components/tag-analysis";
 import { ImprovementSuggestions } from "@/components/improvement-suggestions";
 import { AllMetaTags } from "@/components/all-meta-tags";
+import { CategorySummaryCards } from "@/components/category-summary-cards";
 import { SeoAnalysisResult } from "@shared/schema";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { Code, Facebook, Twitter, Github, Globe } from "lucide-react";
+import { Code, Facebook, Twitter, Github, Globe, BarChart2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -89,17 +90,29 @@ export default function Home() {
         {analyzeMutation.isPending && (
           <div className="bg-white shadow rounded-lg p-4 md:p-6 mb-8">
             <div className="animate-pulse space-y-6">
-              <div className="h-6 bg-gray-200 rounded w-1/3"></div>
-              <div className="space-y-3">
-                <div className="h-4 bg-gray-200 rounded"></div>
-                <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-                <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+              <div className="flex space-x-2">
+                <div className="h-6 w-6 bg-gray-200 rounded-full"></div>
+                <div className="h-6 bg-gray-200 rounded w-1/3"></div>
               </div>
+              
+              {/* Score Overview Skeleton */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                <div className="h-40 bg-gray-200 rounded"></div>
-                <div className="h-40 bg-gray-200 rounded"></div>
-                <div className="h-40 bg-gray-200 rounded"></div>
-                <div className="h-40 bg-gray-200 rounded"></div>
+                <div className="h-32 bg-gray-200 rounded"></div>
+                <div className="h-32 bg-gray-200 rounded"></div>
+                <div className="h-32 bg-gray-200 rounded"></div>
+                <div className="h-32 bg-gray-200 rounded"></div>
+              </div>
+              
+              {/* Category Cards Skeleton */}
+              <div>
+                <div className="h-6 bg-gray-200 rounded w-1/4 mb-4"></div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="h-48 bg-gray-200 rounded"></div>
+                  <div className="h-48 bg-gray-200 rounded"></div>
+                  <div className="h-48 bg-gray-200 rounded"></div>
+                  <div className="h-48 bg-gray-200 rounded"></div>
+                  <div className="h-48 bg-gray-200 rounded"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -107,14 +120,34 @@ export default function Home() {
 
         {!analyzeMutation.isPending && analysisResult && (
           <div className="space-y-6 md:space-y-8">
-            <ScoreOverview 
-              result={analysisResult} 
-              onPreviewClick={() => scrollToSection(previewSectionRef)} 
-              onTagsClick={() => scrollToSection(tagAnalysisRef)} 
-              onIssuesClick={() => scrollToSection(suggestionsRef)} 
-              onAllTagsClick={() => scrollToSection(allTagsRef)}  
-            />
-            
+            <div className="bg-white p-4 md:p-6 rounded-lg shadow">
+              <div className="flex items-center space-x-2 mb-4">
+                <BarChart2 className="h-6 w-6 text-primary" />
+                <h2 className="text-lg md:text-xl font-semibold">Analysis Results for {analysisResult.url}</h2>
+              </div>
+              
+              <div className="grid grid-cols-1 gap-6">
+                <ScoreOverview 
+                  result={analysisResult} 
+                  onPreviewClick={() => scrollToSection(previewSectionRef)} 
+                  onTagsClick={() => scrollToSection(tagAnalysisRef)} 
+                  onIssuesClick={() => scrollToSection(suggestionsRef)} 
+                  onAllTagsClick={() => scrollToSection(allTagsRef)}  
+                />
+                
+                {/* Visual Category Summaries */}
+                <div className="mt-4">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">SEO Category Breakdown</h3>
+                  <CategorySummaryCards 
+                    result={analysisResult} 
+                    onCategoryClick={(category) => {
+                      scrollToSection(tagAnalysisRef);
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
             <div ref={previewSectionRef} className="section-anchor">
               <PreviewSection result={analysisResult} />
             </div>
