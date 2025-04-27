@@ -12,20 +12,20 @@ export function TagAnalysis({ result }: TagAnalysisProps) {
   const getStatusIcon = (status: 'success' | 'warning' | 'error') => {
     switch (status) {
       case 'success':
-        return <CheckCircle className="h-5 w-5 text-success" />;
+        return <CheckCircle className="h-4 w-4 md:h-5 md:w-5 text-green-600" />;
       case 'warning':
-        return <AlertTriangle className="h-5 w-5 text-warning" />;
+        return <AlertTriangle className="h-4 w-4 md:h-5 md:w-5 text-amber-500" />;
       case 'error':
-        return <XCircle className="h-5 w-5 text-error" />;
+        return <XCircle className="h-4 w-4 md:h-5 md:w-5 text-red-500" />;
     }
   };
 
   const getStatusBadge = (status: string, text: string) => {
     const colorMap: Record<string, string> = {
-      'optimized': 'bg-success text-white',
-      'too long': 'bg-warning text-white',
-      'missing': 'bg-error text-white',
-      'present': 'bg-success text-white'
+      'optimized': 'bg-green-600 text-white',
+      'too long': 'bg-amber-500 text-black',
+      'missing': 'bg-red-500 text-white',
+      'present': 'bg-green-600 text-white'
     };
 
     return (
@@ -36,21 +36,21 @@ export function TagAnalysis({ result }: TagAnalysisProps) {
   };
 
   const getTitleStatus = () => {
-    if (!result.metaTags.title) return { icon: 'error', badge: 'Missing' };
-    if (result.metaTags.title.length > 60) return { icon: 'warning', badge: 'Too Long' };
-    return { icon: 'success', badge: 'Optimized' };
+    if (!result.metaTags.title) return { icon: 'error' as const, badge: 'Missing' };
+    if (result.metaTags.title.length > 60) return { icon: 'warning' as const, badge: 'Too Long' };
+    return { icon: 'success' as const, badge: 'Optimized' };
   };
 
   const getDescriptionStatus = () => {
-    if (!result.metaTags.description) return { icon: 'warning', badge: 'Missing' };
-    if (result.metaTags.description.length > 160) return { icon: 'warning', badge: 'Too Long' };
-    return { icon: 'success', badge: 'Optimized' };
+    if (!result.metaTags.description) return { icon: 'warning' as const, badge: 'Missing' };
+    if (result.metaTags.description.length > 160) return { icon: 'warning' as const, badge: 'Too Long' };
+    return { icon: 'success' as const, badge: 'Optimized' };
   };
 
   const getCanonicalStatus = () => {
     return result.metaTags.canonical 
-      ? { icon: 'success', badge: 'Present' } 
-      : { icon: 'warning', badge: 'Missing' };
+      ? { icon: 'success' as const, badge: 'Present' } 
+      : { icon: 'warning' as const, badge: 'Missing' };
   };
 
   const titleStatus = getTitleStatus();
@@ -58,35 +58,35 @@ export function TagAnalysis({ result }: TagAnalysisProps) {
   const canonicalStatus = getCanonicalStatus();
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
       {/* Essential SEO Tags */}
       <Card>
-        <CardHeader className="px-6 py-4 border-b border-gray-200">
-          <CardTitle className="text-lg font-medium text-gray-900">Essential SEO Tags</CardTitle>
-          <CardDescription className="text-sm text-gray-500">Primary tags that affect search engine rankings</CardDescription>
+        <CardHeader className="px-4 md:px-6 py-3 md:py-4 border-b border-gray-200">
+          <CardTitle className="text-base md:text-lg font-medium text-gray-900">Essential SEO Tags</CardTitle>
+          <CardDescription className="text-xs md:text-sm text-gray-500">Primary tags that affect search engine rankings</CardDescription>
         </CardHeader>
-        <CardContent className="px-6 py-4">
+        <CardContent className="px-4 md:px-6 py-3 md:py-4">
           <ul className="divide-y divide-gray-200">
             {/* Title Tag */}
-            <li className="py-4">
-              <div className="flex justify-between">
+            <li className="py-3 md:py-4">
+              <div className="flex justify-between items-center">
                 <div className="flex items-center">
                   <div>{getStatusIcon(titleStatus.icon)}</div>
-                  <span className="ml-2 font-medium">Title Tag</span>
+                  <span className="ml-2 text-sm md:text-base font-medium">Title Tag</span>
                 </div>
                 {getStatusBadge(titleStatus.badge, titleStatus.badge)}
               </div>
               <div className="mt-2">
-                <div className="text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
+                <div className="text-xs md:text-sm font-mono bg-gray-50 p-2 rounded overflow-x-auto">
                   <code>{result.metaTags.title || 'No title tag found'}</code>
                 </div>
                 {result.metaTags.title && (
-                  <div className="mt-2 text-sm text-gray-500">
+                  <div className="mt-1 md:mt-2 text-xs md:text-sm text-gray-500">
                     Length: {result.metaTags.title.length} characters (Recommended: 50-60)
                   </div>
                 )}
                 {!result.metaTags.title && (
-                  <div className="mt-2 text-sm text-gray-500">
+                  <div className="mt-1 md:mt-2 text-xs md:text-sm text-gray-500">
                     The title tag is crucial for SEO and should be included on every page.
                   </div>
                 )}
